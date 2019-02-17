@@ -38,7 +38,7 @@ public class AssociatedVote {
 		this.associated = associated;
 	}
 
-	public Boolean getHasVoted() {
+	public Boolean hasVoted() {
 		return hasVoted;
 	}
 

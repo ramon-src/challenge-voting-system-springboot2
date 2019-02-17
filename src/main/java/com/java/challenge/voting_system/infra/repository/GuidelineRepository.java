@@ -1,24 +1,18 @@
 package com.java.challenge.voting_system.infra.repository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.java.challenge.voting_system.guideline.AssociatedVote;
 import com.java.challenge.voting_system.guideline.Guideline;
-import com.java.challenge.voting_system.user.User;
 
 public class GuidelineRepository {
 	
 	private List<Guideline> guidelines;
-	private Map<Guideline, List<User>> associatedUsers;
 	private List<AssociatedVote> associatedVotes;
 	
 	public GuidelineRepository() {
 		guidelines = new ArrayList<Guideline>();
-		associatedUsers = new HashMap<Guideline, List<User>>();
 		setAssociatedVotes(new ArrayList<AssociatedVote>());
 	}
 	
@@ -31,9 +25,18 @@ public class GuidelineRepository {
 	}
 	
 	public Boolean associatedAlreadyVoted(AssociatedVote associatedVote) {
-		return getAssociatedVotes().stream().filter(av -> 
+		return associatedVotes.stream().filter(av -> 
 			av.getGuidelineId() == associatedVote.getGuidelineId() && av.getAssociatedId() == associatedVote.getAssociatedId()
 		).findFirst().isPresent();
+	}
+	
+	public Integer countVotesFrom(Guideline guideline) {
+		Integer votesSum = 0;
+		for(AssociatedVote associatedVote: associatedVotes) {
+			if (associatedVote.getGuidelineId() == guideline.getId() && associatedVote.hasVoted())
+				votesSum++;
+		}
+		return votesSum;
 	}
 	
 	public void associate(AssociatedVote associatedVote) throws Exception {
@@ -58,15 +61,7 @@ public class GuidelineRepository {
 	public void setGuidelines(List<Guideline> guidelines) {
 		this.guidelines = guidelines;
 	}
-
-	public Map<Guideline, List<User>> getAssociatedUsers() {
-		return associatedUsers;
-	}
-
-	public void setAssociatedUsers(Map<Guideline, List<User>> associatedUsers) {
-		this.associatedUsers = associatedUsers;
-	}
-
+	
 	public List<AssociatedVote> getAssociatedVotes() {
 		return associatedVotes;
 	}

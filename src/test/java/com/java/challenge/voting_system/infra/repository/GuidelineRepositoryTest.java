@@ -31,22 +31,22 @@ public class GuidelineRepositoryTest {
 	public void setup() {
 		initMocks(this);
 	}
-	
+
 	@Test
 	public void should_getTheGuideline_when_matchId() {
 		guideline.setId(10L);
 		List<Guideline> guidelines = Arrays.asList(new Guideline(), guideline, new Guideline());
 		guidelineRepository.setGuidelines(guidelines);
-		
+
 		assertEquals(guideline, guidelineRepository.get(guideline));
 	}
-	
+
 	@Test
 	public void should_createANewGuideline() {
 		guideline.setId(10L);
-		
+
 		guidelineRepository.create(guideline);
-		
+
 		assertEquals(1, guidelineRepository.getGuidelines().size());
 	}
 
@@ -54,33 +54,33 @@ public class GuidelineRepositoryTest {
 	public void should_notAssociateUsers_when_guidelineNotFound() throws Exception {
 		guideline.setId(10L);
 		AssociatedVote associatedVote = new AssociatedVote(guideline, user, null);
-		
+
 		guidelineRepository.associate(associatedVote);
 	}
-	
+
 	@Test
 	public void should_existTheGuideline() {
 		guideline.setId(10L);
 		List<Guideline> guidelines = Arrays.asList(guideline);
 		guidelineRepository.setGuidelines(guidelines);
-		
+
 		assertTrue(guidelineRepository.exists(guideline));
 	}
-	
+
 	@Test
-	public void should_not_existTheGuideline() {		
+	public void should_not_existTheGuideline() {
 		assertFalse(guidelineRepository.exists(guideline));
 	}
-	
+
 	@Test
 	public void should_associateUsersToGuideline_when_guidelineWasAssociated() throws Exception {
 		guideline.setId(10L);
 		List<Guideline> guidelines = Arrays.asList(guideline);
 		guidelineRepository.setGuidelines(guidelines);
 		AssociatedVote associatedVote = new AssociatedVote(guideline, user, null);
-		
+
 		guidelineRepository.associate(associatedVote);
-		
+
 		assertEquals(1, guidelineRepository.getAssociatedVotes().size());
 	}
 
@@ -90,8 +90,22 @@ public class GuidelineRepositoryTest {
 		guidelineRepository.setGuidelines(guidelines);
 		AssociatedVote associatedVote = new AssociatedVote(guideline, user, null);
 		guidelineRepository.setAssociatedVotes(Arrays.asList(associatedVote));
-		
+
 		guidelineRepository.associate(associatedVote);
+	}
+
+	@Test
+	public void should_countTheTotalOfVotesFromAGuideline() {
+		guideline.setId(10L);
+		AssociatedVote associatedVote = new AssociatedVote(guideline, user, true);
+		AssociatedVote associatedVote2 = new AssociatedVote(guideline, new User(), true);
+		AssociatedVote associatedVote3 = new AssociatedVote(new Guideline(1L), new User(), true);
+
+		guidelineRepository.setAssociatedVotes(Arrays.asList(associatedVote, associatedVote2, associatedVote3));
+
+		Integer totalOfVotes = guidelineRepository.countVotesFrom(guideline);
+
+		assertEquals(Integer.valueOf(2), totalOfVotes);
 	}
 
 }
