@@ -1,4 +1,4 @@
-package com.java.challenge.voting_system.guideline;
+package com.java.challenge.voting_system.domain.guideline;
 
 public class Guideline {
 	

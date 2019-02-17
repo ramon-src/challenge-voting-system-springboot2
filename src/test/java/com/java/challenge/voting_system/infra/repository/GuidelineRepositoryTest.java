@@ -13,9 +13,9 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-import com.java.challenge.voting_system.guideline.AssociatedVote;
-import com.java.challenge.voting_system.guideline.Guideline;
-import com.java.challenge.voting_system.user.User;
+import com.java.challenge.voting_system.domain.guideline.AssociatedVote;
+import com.java.challenge.voting_system.domain.guideline.Guideline;
+import com.java.challenge.voting_system.domain.user.User;
 
 public class GuidelineRepositoryTest {
 

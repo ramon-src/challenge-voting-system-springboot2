@@ -1,6 +1,6 @@
-package com.java.challenge.voting_system.guideline;
+package com.java.challenge.voting_system.domain.guideline;
 
-import com.java.challenge.voting_system.user.User;
+import com.java.challenge.voting_system.domain.user.User;
 
 public class AssociatedVote {
 	private Guideline guideline;

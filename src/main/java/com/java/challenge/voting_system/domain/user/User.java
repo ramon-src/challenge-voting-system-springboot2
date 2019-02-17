@@ -1,4 +1,4 @@
-package com.java.challenge.voting_system.user;
+package com.java.challenge.voting_system.domain.user;
 
 public class User {
 

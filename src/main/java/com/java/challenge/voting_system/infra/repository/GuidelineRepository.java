@@ -3,9 +3,12 @@ package com.java.challenge.voting_system.infra.repository;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.java.challenge.voting_system.guideline.AssociatedVote;
-import com.java.challenge.voting_system.guideline.Guideline;
+import org.springframework.stereotype.Repository;
 
+import com.java.challenge.voting_system.domain.guideline.AssociatedVote;
+import com.java.challenge.voting_system.domain.guideline.Guideline;
+
+@Repository
 public class GuidelineRepository {
 	
 	private List<Guideline> guidelines;
