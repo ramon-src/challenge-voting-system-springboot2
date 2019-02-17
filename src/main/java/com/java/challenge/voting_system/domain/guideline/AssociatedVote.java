@@ -7,8 +7,11 @@ public class AssociatedVote {
 	private User associated;
 	private Boolean hasVoted;
 
+	public AssociatedVote() {
+		
+	}
+	
 	public AssociatedVote(Guideline guideline, User associated, Boolean hasVoted) {
-		super();
 		this.guideline = guideline;
 		this.associated = associated;
 		this.hasVoted = hasVoted;
