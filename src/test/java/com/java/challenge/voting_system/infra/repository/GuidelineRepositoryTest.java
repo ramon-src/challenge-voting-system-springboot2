@@ -5,17 +5,15 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import com.java.challenge.voting_system.guideline.AssociatedVote;
 import com.java.challenge.voting_system.guideline.Guideline;
 import com.java.challenge.voting_system.user.User;
 
@@ -55,8 +53,9 @@ public class GuidelineRepositoryTest {
 	@Test(expected = Exception.class)
 	public void should_notAssociateUsers_when_guidelineNotFound() throws Exception {
 		guideline.setId(10L);
+		AssociatedVote associatedVote = new AssociatedVote(guideline, user, null);
 		
-		guidelineRepository.associate(user, guideline);
+		guidelineRepository.associate(associatedVote);
 	}
 	
 	@Test
@@ -74,29 +73,25 @@ public class GuidelineRepositoryTest {
 	}
 	
 	@Test
-	public void should_associateUsersToGuideline_evenWhen_guidelineIsNotAssociatedYet() throws Exception {
-		guideline.setId(10L);
-		List<Guideline> guidelines = Arrays.asList(guideline);
-		guidelineRepository.setGuidelines(guidelines);
-		
-		guidelineRepository.associate(user, guideline);
-		
-		assertEquals(1, guidelineRepository.getAssociatedUsers().size());
-	}
-
-	@Test
 	public void should_associateUsersToGuideline_when_guidelineWasAssociated() throws Exception {
 		guideline.setId(10L);
 		List<Guideline> guidelines = Arrays.asList(guideline);
 		guidelineRepository.setGuidelines(guidelines);
+		AssociatedVote associatedVote = new AssociatedVote(guideline, user, null);
 		
-		Map<Guideline, List<User>> associatedUsers = new HashMap<Guideline, List<User>>();
-		associatedUsers.put(guideline, new ArrayList<User>());
-		guidelineRepository.setAssociatedUsers(associatedUsers);
+		guidelineRepository.associate(associatedVote);
 		
-		guidelineRepository.associate(user, guideline);
+		assertEquals(1, guidelineRepository.getAssociatedVotes().size());
+	}
+
+	@Test(expected = Exception.class)
+	public void should_not_permitToUserVoteInGuideline_when_alreadyVoted() throws Exception {
+		List<Guideline> guidelines = Arrays.asList(guideline);
+		guidelineRepository.setGuidelines(guidelines);
+		AssociatedVote associatedVote = new AssociatedVote(guideline, user, null);
+		guidelineRepository.setAssociatedVotes(Arrays.asList(associatedVote));
 		
-		assertEquals(1, guidelineRepository.getAssociatedUsers().size());
+		guidelineRepository.associate(associatedVote);
 	}
 
 }
