@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.java.challenge.voting_system.app.http.anticorruption.VoteInfoDTO;
 import com.java.challenge.voting_system.domain.guideline.AssociatedVote;
-import com.java.challenge.voting_system.infra.repository.GuidelineRepository;
+import com.java.challenge.voting_system.infra.repository.IGuidelineRepository;
 
 @ResponseBody
 @RestController
 @RequestMapping("voting")
 public class VotingController {
 	@Autowired
-	private GuidelineRepository guidelineRepository;
+	private IGuidelineRepository guidelineRepository;
 	
 	@PostMapping("/in-guideline")
 	public void votingInGuideline(@RequestBody VoteInfoDTO voteInfoDTO) throws Exception {

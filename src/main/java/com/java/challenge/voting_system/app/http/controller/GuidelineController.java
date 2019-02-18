@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.java.challenge.Loader;
 import com.java.challenge.voting_system.app.http.anticorruption.GuidelineDTO;
 import com.java.challenge.voting_system.app.http.service.GuidelinesRulesToView;
-import com.java.challenge.voting_system.infra.repository.GuidelineRepository;
+import com.java.challenge.voting_system.infra.repository.IGuidelineRepository;
 
 @ResponseBody
 @RestController
@@ -18,9 +19,8 @@ import com.java.challenge.voting_system.infra.repository.GuidelineRepository;
 public class GuidelineController {
 	@Autowired
 	private GuidelinesRulesToView guidelinesRulesToViewService;
-	@Autowired
-	private GuidelineRepository guidelineRepository;
-
+	private IGuidelineRepository guidelineRepository = Loader.getGuidelineRepository();
+	
 	@GetMapping("/all")
 	public GuidelineDTO all() {
 		return guidelinesRulesToViewService.listAllGuidelines();

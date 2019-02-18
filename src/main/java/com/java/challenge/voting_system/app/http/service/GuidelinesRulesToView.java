@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.java.challenge.voting_system.app.http.anticorruption.GuidelineDTO;
-import com.java.challenge.voting_system.infra.repository.GuidelineRepository;
+import com.java.challenge.voting_system.infra.repository.IGuidelineRepository;
 
 @Service
 public class GuidelinesRulesToView {
 	@Autowired
-	public GuidelineRepository guidelineRepository;
+	public IGuidelineRepository guidelineRepository;
 	
 	public GuidelineDTO guidelineDTO;
 
@@ -18,7 +18,7 @@ public class GuidelinesRulesToView {
 	}
 	
 	public GuidelineDTO listAllGuidelines() {
-		guidelineDTO.setGuidelines(guidelineRepository.getGuidelines());
+		guidelineDTO.setGuidelines(guidelineRepository.all());
 		return guidelineDTO;
 	}
 }

@@ -11,9 +11,11 @@ import org.mockito.Mock;
 import com.java.challenge.voting_system.app.http.anticorruption.GuidelineDTO;
 import com.java.challenge.voting_system.app.http.service.GuidelinesRulesToView;
 import com.java.challenge.voting_system.domain.guideline.Guideline;
-import com.java.challenge.voting_system.infra.repository.GuidelineRepository;
+import com.java.challenge.voting_system.infra.repository.GuidelineInMemoryRepository;
 
-public class GuidelineControllerTest {
+import setup.SuiteTest;
+
+public class GuidelineControllerTest extends SuiteTest {
 
 	@InjectMocks
 	private GuidelineController guidelineController;
@@ -21,7 +23,7 @@ public class GuidelineControllerTest {
 	@Mock
 	private GuidelinesRulesToView guidelinesRulesToView;
 	@Mock
-	private GuidelineRepository guidelineRepository;
+	private GuidelineInMemoryRepository guidelineRepository;
 
 	@Before
 	public void setup() {

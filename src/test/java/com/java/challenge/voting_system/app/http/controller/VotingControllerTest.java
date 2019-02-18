@@ -10,7 +10,7 @@ import org.mockito.Mock;
 
 import com.java.challenge.voting_system.app.http.anticorruption.VoteInfoDTO;
 import com.java.challenge.voting_system.domain.guideline.AssociatedVote;
-import com.java.challenge.voting_system.infra.repository.GuidelineRepository;
+import com.java.challenge.voting_system.infra.repository.GuidelineInMemoryRepository;
 
 public class VotingControllerTest {
 
@@ -18,7 +18,7 @@ public class VotingControllerTest {
 	private VotingController votingController;
 
 	@Mock
-	private GuidelineRepository guidelineRepository;
+	private GuidelineInMemoryRepository guidelineRepository;
 
 	@Before
 	public void setup() {

@@ -17,10 +17,12 @@ import com.java.challenge.voting_system.domain.guideline.AssociatedVote;
 import com.java.challenge.voting_system.domain.guideline.Guideline;
 import com.java.challenge.voting_system.domain.user.User;
 
-public class GuidelineRepositoryTest {
+import setup.SuiteTest;
+
+public class GuidelineRepositoryTest extends SuiteTest {
 
 	@InjectMocks
-	private GuidelineRepository guidelineRepository;
+	private GuidelineInMemoryRepository guidelineRepository;
 
 	@Mock
 	private Guideline guideline;
@@ -47,7 +49,7 @@ public class GuidelineRepositoryTest {
 
 		guidelineRepository.create(guideline);
 
-		assertEquals(1, guidelineRepository.getGuidelines().size());
+		assertEquals(3, guidelineRepository.getGuidelines().size());
 	}
 
 	@Test(expected = Exception.class)
@@ -81,7 +83,7 @@ public class GuidelineRepositoryTest {
 
 		guidelineRepository.associate(associatedVote);
 
-		assertEquals(1, guidelineRepository.getAssociatedVotes().size());
+		assertEquals(5, guidelineRepository.getAssociatedVotes().size());
 	}
 
 	@Test(expected = Exception.class)
