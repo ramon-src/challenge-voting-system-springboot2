@@ -26,6 +26,8 @@ repositories {
 sourceCompatibility = 1.11
 targetCompatibility = 1.11
 
+defaultTasks 'clean', 'build', 'test', 'bootJar'
+
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
 
