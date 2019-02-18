@@ -1,5 +1,6 @@
 package com.java.challenge.voting_system.app.http.controller;
 
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -10,6 +11,8 @@ import org.mockito.Mock;
 
 import com.java.challenge.voting_system.app.http.anticorruption.VoteInfoDTO;
 import com.java.challenge.voting_system.domain.guideline.AssociatedVote;
+import com.java.challenge.voting_system.domain.guideline.Guideline;
+import com.java.challenge.voting_system.domain.guideline.GuidelineFactory;
 import com.java.challenge.voting_system.infra.repository.GuidelineInMemoryRepository;
 
 public class VotingControllerTest {
@@ -19,6 +22,8 @@ public class VotingControllerTest {
 
 	@Mock
 	private GuidelineInMemoryRepository guidelineRepository;
+	@Mock
+	private GuidelineFactory guidelineFactory;
 
 	@Before
 	public void setup() {
@@ -30,9 +35,20 @@ public class VotingControllerTest {
 		VoteInfoDTO voteInfoDTO = new VoteInfoDTO();
 		AssociatedVote voteInfo = new AssociatedVote();
 		voteInfoDTO.setVoteInfo(voteInfo);
-		
+
 		votingController.votingInGuideline(voteInfoDTO);
-		
+
 		verify(guidelineRepository).associate(voteInfoDTO.getVoteInfo());
+	}
+
+	@Test
+	public void should_countTheNumberOfAssociatedVotesInGuideline_when_counterRouteCalled() throws Exception {
+		long id = 1L;
+		Guideline guideline = new Guideline(id);
+		given(guidelineFactory.make(id)).willReturn(guideline);
+
+		votingController.counter(id);
+
+		verify(guidelineRepository).countVotesFrom(guideline);
 	}
 }

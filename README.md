@@ -26,3 +26,7 @@ http://localhost:8080/voting/in-guideline
   }
 }
 ```
+
+http://localhost:8080/voting/counter/2
+
+the response must be two
